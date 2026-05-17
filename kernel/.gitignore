@@ -1,0 +1,16 @@
+# Ignore binary file and trash file
+kernel/*.o
+kernel/*.ko
+kernel/*.mod*
+kernel/*.cmd
+kernel/modules.order
+kernel/Module.symvers
+kernel/.tmp_versions/
+
+# Ignore binary file at User Space
+user/vvaltz
+
+# Ignore config file of IDE
+.vscode/
+.idea/
+*.swp
