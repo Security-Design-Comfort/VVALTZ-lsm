@@ -5,14 +5,11 @@
 
 void print_usage() {
     std::cout << "=== VVALTZ SYSTEM UTILITY ===\n";
-    std::cout << "Core Control Operations:\n";
-    std::cout << "  vvaltz --add </path/to/dir>    : Arm and protect a specific path\n";
-    std::cout << "  vvaltz --remove </path/to/dir> : Release dynamic lock from a path\n";
-    std::cout << "  vvaltz --status                : Inspect current driver policy matrix\n";
-    std::cout << "-------------------------------------------------------\n";
-    std::cout << "Preset Management (Recommended profile configurations):\n";
-    std::cout << "  vvaltz --preset-list           : List all available system templates\n";
-    std::cout << "  vvaltz --preset-apply <name>   : Deploy a target configuration template\n";
+    std::cout << "  --add </path/to/dir>    : Arm and protect a specific path\n";
+    std::cout << "  --remove </path/to/dir> : Release dynamic lock from a path\n";
+    std::cout << "  --status                : Inspect current driver policy matrix\n";
+    std::cout << "  --preset-list           : List all available system templates\n";
+    std::cout << "  --preset-apply <name>   : Deploy a target configuration template\n";
 }
 
 int main(int argc, char* argv[]) {
@@ -45,7 +42,7 @@ int main(int argc, char* argv[]) {
     } 
     // OPERATION 1: SHOWCASE PRESET TEMPLATES
     else if (command == "--preset-list") {
-        std::cout << "\n--- SYSTEM RECOMMENDED PROFILES (NON-MANDATORY) ---\n\n";
+        std::cout << "\n=== SYSTEM RECOMMENDED PROFILES ===\n\n";
         size_t i;
         for (i = 0; i < SYSTEM_PRESETS.size(); i = i + 1) {
             std::cout << " [*] Template Name: " << SYSTEM_PRESETS[i].name << "\n";
