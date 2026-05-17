@@ -17,17 +17,17 @@ struct VaultPreset {
 const std::vector<VaultPreset> SYSTEM_PRESETS = {
     {
         "ssh-keys", 
-        "Secures personal cryptographic SSH keys and authentication configurations", 
+        "Secures personal cryptographic SSH keys and configuration files", 
         {"/.ssh/"}
     },
     {
         "browser-data", 
-        "Secures sensitive web browser session data (Cookies, History, Login Profiles)", 
+        "Secures sensitive web browser profiles, cookies, and local session caches", 
         {"/.config/google-chrome/", "/.mozilla/firefox/"}
     },
     {
         "user-documents", 
-        "Secures private operational documents and system download directories", 
+        "Secures private daily document directories and down-stream system files", 
         {"/Documents/", "/Downloads/"}
     }
 };
