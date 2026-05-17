@@ -3,6 +3,7 @@
 #include <linux/proc_fs.h>
 #include <linux/uaccess.h>
 #include <linux/string.h>
+#include <linux/slab.h>
 #include "vvaltz.h"
 
 #define PROCFS_NAME "vvaltz_control"
@@ -15,13 +16,12 @@ struct vault_rule {
 };
 extern struct vault_rule policy_rules[MAX_RULES];
 
-// Handles commands (+ /path or - /path) from user-space CLI
+
 static ssize_t vvaltz_control_write(struct file *file, const char __user *ubuf, size_t count, loff_t *ppos) {
     char kbuf[MAX_PATH_LEN + 4];
     size_t len;
     char operation_type;
     char *target_path;
-    size_t i;
 
     if (count > MAX_PATH_LEN + 3) {
         len = MAX_PATH_LEN + 3;
@@ -40,45 +40,50 @@ static ssize_t vvaltz_control_write(struct file *file, const char __user *ubuf, 
     }
 
     operation_type = kbuf[0];
-    target_path = &kbuf[2];
+    target_path = kbuf + 2;
 
-    i = 0;
-    while (target_path[i] != '\0') {
-        if (target_path[i] == '\n' || target_path[i] == '\r') {
-            target_path[i] = '\0';
-            break;
+    len = strlen(target_path);
+    if (len > 0) {
+        if (target_path[len - 1] == '\n') {
+            target_path[len - 1] = '\0';
         }
-        i = i + 1;
     }
 
     if (operation_type == '+') {
         add_protected_path(target_path);
-    }
+    } 
     else if (operation_type == '-') {
         remove_protected_path(target_path);
+    } 
+    else {
+        return -EINVAL;
     }
 
     return count;
 }
 
-// Streams the list of active protected directories back to the CLI
-static ssize_t vvaltz_control_read(struct file *file, char __user *ubuf, size_t count, loff_t *ppos)
-{
+static ssize_t vvaltz_control_read(struct file *file, char __user *ubuf, size_t count, loff_t *ppos) {
     char *page_buffer;
-    int len = 0;
+    ssize_t len = 0;
     size_t i;
+    int items_found = 0;
 
     page_buffer = kmalloc(4096, GFP_KERNEL);
-    if (!page_buffer) {
+    if (page_buffer == NULL) {
         return -ENOMEM;
     }
 
-    len = len + snprintf(page_buffer + len, 4096 - len, "=== VVALTZ ACTIVE CORE PROTECTION MATRIX ===\n");
+    len = len + snprintf(page_buffer + len, 4096 - len, "=== VVALTZ ACTIVE CORE ===\n");
 
     for (i = 0; i < MAX_RULES; i = i + 1) {
         if (policy_rules[i].active == 1) {
-            len = len + snprintf(page_buffer + len, 4096 - len, "    %s\n", policy_rules[i].path);
+            len = len + snprintf(page_buffer + len, 4096 - len, "Protected: %s\n", policy_rules[i].path);
+            items_found = items_found + 1;
         }
+    }
+
+    if (items_found == 0) {
+        len = len + snprintf(page_buffer + len, 4096 - len, "No paths are currently protected.\n");
     }
 
     if (*ppos >= len) {
@@ -108,18 +113,20 @@ static const struct proc_ops vvaltz_proc_fops = {
     .proc_write = vvaltz_control_write,
 };
 
-int init_proc_interface(void)
-{
+int init_proc_interface(void) {
     vvaltz_proc_file = proc_create(PROCFS_NAME, 0666, NULL, &vvaltz_proc_fops);
     if (vvaltz_proc_file == NULL) {
+        proc_remove(vvaltz_proc_file);
+        printk(KERN_ERR "[VVALTZ] Critical Error: Unable to instantiate proc control interface node.\n");
         return -ENOMEM;
     }
+    printk(KERN_INFO "[VVALTZ] Control boundary mapped successfully at /proc/%s\n", PROCFS_NAME);
     return 0;
 }
 
-void remove_proc_interface(void)
-{
+void remove_proc_interface(void) {
     if (vvaltz_proc_file != NULL) {
         proc_remove(vvaltz_proc_file);
     }
+    printk(KERN_INFO "[VVALTZ] Control boundary unmapped safely from procfs.\n");
 }
