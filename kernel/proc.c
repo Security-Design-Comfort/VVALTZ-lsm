@@ -77,7 +77,7 @@ static ssize_t vvaltz_control_read(struct file *file, char __user *ubuf, size_t 
 
     for (i = 0; i < MAX_RULES; i = i + 1) {
         if (policy_rules[i].active == 1) {
-            len = len + snprintf(page_buffer + len, 4096 - len, "Protected: %s\n", policy_rules[i].path);
+            len = len + snprintf(page_buffer + len, 4096 - len, "    %s\n", policy_rules[i].path);
         }
     }
 
