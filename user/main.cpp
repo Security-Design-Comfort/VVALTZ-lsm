@@ -4,9 +4,7 @@
 #include "cli.h"
 
 void print_usage() {
-    std::cout << "=======================================================\n";
-    std::cout << "               VVALTZ SYSTEM UTILITY                   \n";
-    std::cout << "=======================================================\n";
+    std::cout << "=== VVALTZ SYSTEM UTILITY ===\n";
     std::cout << "Core Control Operations:\n";
     std::cout << "  vvaltz --add </path/to/dir>    : Arm and protect a specific path\n";
     std::cout << "  vvaltz --remove </path/to/dir> : Release dynamic lock from a path\n";
@@ -15,7 +13,6 @@ void print_usage() {
     std::cout << "Preset Management (Recommended profile configurations):\n";
     std::cout << "  vvaltz --preset-list           : List all available system templates\n";
     std::cout << "  vvaltz --preset-apply <name>   : Deploy a target configuration template\n";
-    std::cout << "=======================================================\n";
 }
 
 int main(int argc, char* argv[]) {
@@ -58,7 +55,6 @@ int main(int argc, char* argv[]) {
             for (j = 0; j < SYSTEM_PRESETS[i].paths.size(); j = j + 1) {
                 std::cout << SYSTEM_PRESETS[i].paths[j] << "  ";
             }
-            std::cout << "\n-------------------------------------------------------\n";
         }
     }
     // OPERATION 2: RESOLVE AND INJECT PRESET TARGETS
