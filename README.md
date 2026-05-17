@@ -1,2 +1,3 @@
-# VVALTZ-lsm
-Repo for my project, VVALTZ, a linux security module.
+# VVALTZ-lsm (WIP)
+VVALTZ is a Linux security module that prevents any changes to directories from being made by anyone, including its users.
+This project is more theoretical than practical due to my short development time.
