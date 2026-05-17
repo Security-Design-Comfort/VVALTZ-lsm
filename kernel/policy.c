@@ -11,8 +11,12 @@ struct vault_rule {
 
 struct vault_rule policy_rules[MAX_RULES];
 
+// Explicit function prototype injection to eliminate -Wmissing-prototypes warnings
+int is_path_protected(const char *path);
+
 // Scans the active matrix to see if a system path is locked
-int is_path_protected(const char *path) {
+int is_path_protected(const char *path)
+{
     size_t i;
 
     for (i = 0; i < MAX_RULES; i = i + 1) {
@@ -26,7 +30,8 @@ int is_path_protected(const char *path) {
 }
 
 // Registers a new target directory into the security matrix
-void add_protected_path(const char *path) {
+void add_protected_path(const char *path)
+{
     size_t i;
     int allocated = 0;
 
@@ -43,7 +48,7 @@ void add_protected_path(const char *path) {
             if (policy_rules[i].active == 0) {
                 strncpy(policy_rules[i].path, path, MAX_PATH_LEN);
                 policy_rules[i].active = 1;
-                allocated = 1;
+                allocated = 1; 
                 
                 printk(KERN_INFO "[VVALTZ] Protection rule armed at slot %zu for: %s\n", i, path);
             }
@@ -52,7 +57,8 @@ void add_protected_path(const char *path) {
 }
 
 // Clears a path out of the matrix slot allocations
-void remove_protected_path(const char *path) {
+void remove_protected_path(const char *path)
+{
     size_t i;
 
     for (i = 0; i < MAX_RULES; i = i + 1) {
