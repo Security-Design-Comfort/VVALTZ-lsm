@@ -4,8 +4,33 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <vector>
 
 const std::string PROC_VAULT_PATH = "/proc/vvaltz_control";
+
+struct VaultPreset {
+    std::string name;
+    std::string description;
+    std::vector<std::string> paths;
+};
+
+const std::vector<VaultPreset> SYSTEM_PRESETS = {
+    {
+        "ssh-keys", 
+        "Secures personal cryptographic SSH keys and authentication configurations", 
+        {"/.ssh/"}
+    },
+    {
+        "browser-data", 
+        "Secures sensitive web browser session data (Cookies, History, Login Profiles)", 
+        {"/.config/google-chrome/", "/.mozilla/firefox/"}
+    },
+    {
+        "user-documents", 
+        "Secures private operational documents and system download directories", 
+        {"/Documents/", "/Downloads/"}
+    }
+};
 
 inline bool add_directory_to_vault(const std::string& path) {
     std::ofstream proc_file(PROC_VAULT_PATH);
@@ -40,4 +65,4 @@ inline bool print_vault_status() {
     return true;
 }
 
-#endif
+#endif // CLI_H
