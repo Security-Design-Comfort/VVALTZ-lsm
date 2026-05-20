@@ -3,7 +3,7 @@ VVALTZ is a Linux Security mModule that prevents any changes to directories from
 This project is more theoretical than practical due to my short development time.
 
 TODO:
--[ ] Introduction
--[ ] Installation
--[ ] Usages
--[ ] Notices
+- [ ] Introduction
+- [ ] Installation
+- [ ] Usages
+- [ ] Notices
