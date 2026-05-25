@@ -1,4 +1,5 @@
-<img src="https://github.com/Security-Design-Comfort/VVALTZ-lsm/blob/main/image/logo.png" width="200"> # VVALTZ LSM
+# VVALTZ LSM
+<img src="https://github.com/Security-Design-Comfort/VVALTZ-lsm/blob/main/image/logo.png" width="250">
 A lightweight linux security module that provides low-level folder protection by deploying dynamic hooks at Ring 0 to stop unauthorized access, even from root users.
 
 ## Installation
