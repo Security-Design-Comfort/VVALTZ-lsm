@@ -1,5 +1,5 @@
 # VVALTZ LSM
-A lightweight linux kernel module that provides low-level folder protection by deploying dynamic hooks at Ring 0 to stop unauthorized access, even from root users.
+A lightweight linux security module that provides low-level folder protection by deploying dynamic hooks at Ring 0 to stop unauthorized access, even from root users.
 
 ## Installation
 Git clone this repo and build your own module with Makefile
