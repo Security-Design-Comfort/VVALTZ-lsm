@@ -1,7 +1,8 @@
-# VVALTZ Layer Engine
 <div align="center">
   <img src="./image/logo.png" width="100">
 </div>
+<h1 align="center">VVALTZ Layer Engine</h1>
+
 A lightweight linux security module that provides low-level folder protection by deploying dynamic hooks at Ring 0 to stop unauthorized access, even from root users.
 
 ## Installation
