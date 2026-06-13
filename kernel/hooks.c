@@ -90,7 +90,7 @@ int install_hooks(void)
         return ret;
     }
 
-    printk(KERN_INFO "[VVALTZ] System Interception Matrix Armed and Online via Core Kern Symbols.\n");
+    printk(KERN_INFO "[VVALTZ] System Interception Matrix Armed and Online via Core Kernel Symbols.\n");
     return 0;
 }
 
