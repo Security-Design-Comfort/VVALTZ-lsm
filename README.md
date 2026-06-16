@@ -37,6 +37,7 @@ Basic commands:
 
 # Release a directory lock out of the security policy matrix
 ./vvaltz --remove /absolute/path/to/target
+
 ```
 
 Deploying built-in recommended templates:
@@ -47,10 +48,29 @@ Deploying built-in recommended templates:
 # Deploy a specific profile
 ./vvaltz --preset-apply ssh-keys
 ```
-## Notices
-This is the result of development over in a short period of time.
-AI is used to fix codes and check spelling.
-Errors and bugs are expected as I am a newbie in this field.
 
-Additionally, there is currently no safe way to remove this module.
-If you want to uninstall this, just reboot your system and the module will be wiped out.
+Advanced Module Control (Anti-Tampering)
+```bash
+# Hide the module from lsmod (default)
+./vvaltz --hide
+
+# Makes it visible to lsmod
+./vvaltz --restore
+```
+
+## Uninstallation
+Because VVALTZ implements advanced structural cloaking inside the kernel, you cannot directly run rmmod while the module is hidden.
+
+To safely unload the module from memory without rebooting, follow this exact sequence:
+```bash
+# 1. Force the module to restore its links to the kernel module list
+./vvaltz --restore
+
+# 2. Unload the module from the system safely
+sudo rmmod vvaltz
+```
+
+## Notices
+- **Development Scope**: This project is the result of an intensive 8-week engineering sprint.
+- **Tooling Disclosure**: AI assistance was carefully integrated during development exclusively for code optimizations, syntax refinement, and minor spelling corrections.
+- **Disclaimer**: This software interacts directly with critical system-level abstractions inside Kernel Space. While it has been thoroughly stress-tested for stability under current configurations, unforeseen edge-case errors or bugs may occur. Use with caution in production environments.
