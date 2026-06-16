@@ -21,7 +21,7 @@ Install the module in the same folder
 Navigate to /VVALTZ/user to make cli file
 ```bash
   cd VVALTZ-lsm/user
-  g++ -O2 -Wall main.cpp -o vvaltz
+  g++ -o2 -Wall main.cpp -o vvaltz
 ```
 
 Basic commands:
