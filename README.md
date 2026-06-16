@@ -2,13 +2,13 @@
   <img src="./image/logo.png" width="100">
 </div>
 <h1 align="center">VVALTZ Layer Engine</h1>
-<h4 align="center">A lightweight linux security module that provides low-level folder protection by deploying dynamic hooks at Ring 0 to stop unauthorized access, even from root users.</h3>
+<p align="center">A lightweight linux security module that provides low-level folder protection by deploying dynamic hooks at Ring 0 to stop unauthorized access, even from root users.</p>
 
 ## Installation
 Git clone this repo and build your own module with Makefile
 ```bash
   git clone https://github.com/Security-Design-Comfort/VVALTZ-lsm.git
-  cd /VVALTZ-lsm/kernel
+  cd VVALTZ-lsm/kernel
   make
 ```
 
@@ -20,7 +20,7 @@ Install the module in the same folder
 ## Usages
 Navigate to /VVALTZ/user to make cli file
 ```bash
-  cd /VVALTZ-lsm/user
+  cd VVALTZ-lsm/user
   g++ -O2 -Wall main.cpp -o vvaltz
 ```
 
